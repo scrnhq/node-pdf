@@ -17,4 +17,4 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-module.exports = app;
+export default app;
