@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('node-pdf:server');
+var app = require('../dist/app');
+var debug = require('debug')('node-pdf');
 var http = require('http');
 
 /**

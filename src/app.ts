@@ -1,14 +1,14 @@
-var createError = require('http-errors');
-var express = require('express');
-var logger = require('morgan');
+import createError from 'http-errors';
+import express from 'express';
+import logger from 'morgan';
 
-var indexRouter = require('./routes/index');
+import indexRouter from './routes';
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
 
