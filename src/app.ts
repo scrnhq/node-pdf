@@ -19,7 +19,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-  res.status(err.status).send(err.message);
+  res.status(err.status || 500).json(err);
 })
 
 export default app;
