@@ -4,7 +4,9 @@ let browser: Browser;
 
 export default async function() {
   if (!browser) {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    });
   }
 
   return browser;
