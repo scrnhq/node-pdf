@@ -4,12 +4,17 @@ FROM node:10-slim
 # Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
 # installs, work.
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E985B27B \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && sh -c 'echo "deb http://ppa.launchpad.net/no1wantdthisname/ppa/ubuntu/ trusty main" >> /etc/apt/sources.list.d/infiniality.list' \
     && apt-get update \
-    && apt-get install -y google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
+    && apt-get install -y libfontconfig fontconfig-infinality google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
       --no-install-recommends \
+    && /etc/fonts/infinality/infctl.sh setstyle osx \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /src/*.deb
+
+COPY fonts /usr/local/share/fonts
 
 COPY . /app
 WORKDIR /app
