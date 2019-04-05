@@ -1,5 +1,5 @@
 import logger from 'morgan';
-import Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import createError, { HttpError } from 'http-errors';
 import express, { Request, Response, NextFunction } from 'express';
 
