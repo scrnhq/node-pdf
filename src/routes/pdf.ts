@@ -69,6 +69,8 @@ router.post(
       const buffer = await page.pdf(options);
 
       res.type('application/pdf').send(buffer);
+
+      page.close();
     } catch (e) {
       next(e);
     }

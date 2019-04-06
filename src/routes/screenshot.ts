@@ -74,6 +74,8 @@ router.post(
       const buffer = await page.screenshot(options);
 
       res.type('image/png').send(buffer);
+
+      page.close();
     } catch (e) {
       next(e);
     }
