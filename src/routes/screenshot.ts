@@ -1,6 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
-import getBrowser from '../browser';
 import Joi, { validate } from 'joi';
+import express, { Request, Response, NextFunction } from 'express';
+
+import getBrowser from '../browser';
 
 const router = express.Router();
 
@@ -34,6 +35,9 @@ const schema = Joi.object({
         .required(),
     }),
     omitBackground: Joi.boolean(),
+    width: Joi.number().min(0),
+    height: Joi.number().min(0),
+    dpr: Joi.number().min(1),
   }),
 })
   .xor('html', 'url')
@@ -64,6 +68,12 @@ router.post(
 
       const browser = await getBrowser();
       const page = await browser.newPage();
+
+      page.setViewport({
+        width: options.width,
+        height: options.height,
+        deviceScaleFactor: options.dpr,
+      });
 
       if (url) {
         await page.goto(url, { waitUntil: 'load' });
